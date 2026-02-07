@@ -23,6 +23,31 @@ func TestNormalizeURL(t *testing.T) {
 			inputURL: "http://google.com/maps",
 			expected: "google.com/maps",
 		},
+		{
+			name:     "empty url",
+			inputURL: "",
+			expected: "",
+		},
+		{
+			name:     "multiple end slashes",
+			inputURL: "https://google.com/maps////",
+			expected: "google.com/maps",
+		},
+		{
+			name:     "ultimate test 1",
+			inputURL: "https://blog.example.com:443/folder/page?type=article#comments",
+			expected: "blog.example.com/folder/page?type=article",
+		},
+		{
+			name:     "http default port stripped",
+			inputURL: "http://google.com:80/maps/",
+			expected: "google.com/maps",
+		},
+		{
+			name:     "https non-default port kept",
+			inputURL: "https://google.com:8443/maps/",
+			expected: "google.com:8443/maps",
+		},
 	}
 
 	for i, tc := range tests {
